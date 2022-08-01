@@ -1,0 +1,7 @@
+2022-08-01 11:43:18.880  WARN 14440 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-01 11:46:06.344  INFO 16060 --- [restartedMain] c.b.a.AddressBookAppApplication          : Starting AddressBookAppApplication using Java 11.0.10 on LAPTOP-3PCP8SDM with PID 16060 (N:\! daily class CFP\2. Spring intro\AddressBookApp\target\classes started by nk400 in N:\! daily class CFP\2. Spring intro\AddressBookApp)
+2022-08-01 11:46:06.348 DEBUG 16060 --- [restartedMain] c.b.a.AddressBookAppApplication          : Running with Spring Boot v2.7.2, Spring v5.3.22
+2022-08-01 11:46:06.350  INFO 16060 --- [restartedMain] c.b.a.AddressBookAppApplication          : No active profile set, falling back to 1 default profile: "default"
+2022-08-01 11:46:10.371  WARN 16060 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-01 11:46:11.121  INFO 16060 --- [restartedMain] c.b.a.AddressBookAppApplication          : Started AddressBookAppApplication in 5.822 seconds (JVM running for 7.843)
+2022-08-01 11:46:11.125  INFO 16060 --- [restartedMain] c.b.a.AddressBookAppApplication          : Employee Payroll Application Started in COMMON Environment
