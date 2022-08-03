@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -23,9 +24,25 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
+    public List<AddressBookData> sortAddressBookDataByComparator() {
+        List<AddressBookData> listOfData = service.findAll();
+        listOfData.sort(Comparator.comparing(AddressBookData::getCity));
+        return listOfData;
+    }
+
+    @Override
+    public List<AddressBookData> sortContactsByCityOrderBy() {
+        return service.findContactsByCityOrderBy();
+    }
+
+    @Override
+    public List<AddressBookData> sortContactsByCity(String city) {
+        return service.sortContactByCity(city);
+    }
+
+    @Override
     public AddressBookData getAddressBookDataById(int personId) {
-        return service.findById(personId)
-                .orElseThrow(() -> new AddressBookException("Person not found In the List"));
+        return service.findById(personId).orElseThrow(() -> new AddressBookException("Person not found In the List"));
     }
 
     @Override

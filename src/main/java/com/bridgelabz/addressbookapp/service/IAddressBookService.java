@@ -9,6 +9,12 @@ public interface IAddressBookService {
 
     List<AddressBookData> getAddressBookData();
 
+    List<AddressBookData> sortAddressBookDataByComparator();
+
+    List<AddressBookData> sortContactsByCityOrderBy();
+
+    List<AddressBookData> sortContactsByCity(String city);
+
     AddressBookData getAddressBookDataById(int personId);
 
     AddressBookData createAddressBookData(AddressBookDTO addressBookDTO);

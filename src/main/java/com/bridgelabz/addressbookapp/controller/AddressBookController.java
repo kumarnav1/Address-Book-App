@@ -33,6 +33,28 @@ public class AddressBookController {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = {"/get/sortbycity/comparator"})
+    public ResponseEntity<ResponseDTO> getSortedAddressBookDataByCityUsingComparator() {
+        List<AddressBookData> addressBookList = addressBookService.sortAddressBookDataByComparator();
+        ResponseDTO responseDTO = new ResponseDTO("Success Call for Person Id!!!", addressBookList);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/get/sortbycity"})
+    public ResponseEntity<ResponseDTO> getContactsByCityUsingOrderBy() {
+        List<AddressBookData> addressBookDataList = addressBookService.sortContactsByCityOrderBy();
+        ResponseDTO responseDTO = new ResponseDTO("Success call for City!!!", addressBookDataList);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/get/sortbycity/{city}")
+    public ResponseEntity<ResponseDTO> getContactsByCity(@PathVariable("city") String city) {
+        List<AddressBookData> addressBookList = null;
+        addressBookList = addressBookService.sortContactsByCity(city);
+        ResponseDTO responseDTO = new ResponseDTO("Get Call For ID Department Successful", addressBookList);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
+
     @PostMapping(value = {"/create"})
     public ResponseEntity<ResponseDTO> createAddressBookData(@Valid @RequestBody AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData = addressBookService.createAddressBookData(addressBookDTO);
@@ -42,7 +64,7 @@ public class AddressBookController {
 
     @PutMapping(value = {"/update/{personId}"})
     public ResponseEntity<ResponseDTO> updateAddressBookData(@PathVariable int personId,
-                                                            @Valid @RequestBody AddressBookDTO addressBookDTO) {
+                                                             @Valid @RequestBody AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData = addressBookService.updateAddressBookData(personId, addressBookDTO);
         ResponseDTO responseDTO = new ResponseDTO("Data UPDATED Successfully!!!", addressBookData);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
