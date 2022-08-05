@@ -2,14 +2,21 @@ package com.bridgelabz.addressbookapp.controller;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.dto.ResponseDTO;
-import com.bridgelabz.addressbookapp.entity.JwtRequest;
 import com.bridgelabz.addressbookapp.entity.JwtResponse;
+import com.bridgelabz.addressbookapp.entity.LoginUser;
 import com.bridgelabz.addressbookapp.model.AddressBookData;
+import com.bridgelabz.addressbookapp.service.CustomUserDetailsService;
 import com.bridgelabz.addressbookapp.service.IAddressBookService;
-import com.bridgelabz.addressbookapp.service.JwtService;
+
+import com.bridgelabz.addressbookapp.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,11 +30,52 @@ public class AddressBookController {
     private IAddressBookService addressBookService;
 
     @Autowired
-    private JwtService jwtService;
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
 
     @PostMapping({"/firstlogin"})
-    public JwtResponse createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-        return jwtService.createJwtToken(jwtRequest);
+    public ResponseEntity<?>  createJwtToken(@RequestBody LoginUser loginUser) throws Exception {
+        System.out.println(loginUser);
+       try {
+            String username = loginUser.getUsername();
+            String password = loginUser.getPassword();
+
+            UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(username, password);
+            //it authenticates if user already exists or not;
+            //if user exits it gets successfully authenticated and execution goes to line 52
+            this.authenticationManager.authenticate(user);
+
+        } catch (UsernameNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("User invalid");
+            throw new Exception("Bad Credentials");
+        }catch (BadCredentialsException e) {
+            e.printStackTrace();
+            throw new Exception("Bad Credentials");
+        }
+            catch(Exception e){
+                e.printStackTrace();
+                throw new Exception("myException");
+            }
+
+
+        //fine area...
+        //if user successfully authenticated then we get the UserDetails for the user and generate token for him
+        UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(loginUser.getUsername());
+        String generatedToken = this.jwtUtil.generateToken(userDetails);
+        System.out.println("JWT" + generatedToken);
+        return ResponseEntity.ok(new JwtResponse(generatedToken));
+    }
+
+    @RequestMapping({"/hello"})
+    public String firstPage() {
+        return "Hello World";
     }
 
     @GetMapping(value = {"", "/", "/get"})

@@ -3,6 +3,7 @@ package com.bridgelabz.addressbookapp.repository;
 import com.bridgelabz.addressbookapp.model.AddressBookData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface IAddressBookRepository extends JpaRepository<AddressBookData, S
 
     @Query(value = "select * from address_book where state=:state", nativeQuery = true)
     List<AddressBookData> sortContactByState(String state);
+
+    public User findByUsername(String username);
 }
