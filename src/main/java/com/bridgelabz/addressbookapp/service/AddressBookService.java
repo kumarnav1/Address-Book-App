@@ -5,6 +5,7 @@ import com.bridgelabz.addressbookapp.exception.AddressBookException;
 import com.bridgelabz.addressbookapp.model.AddressBookData;
 import com.bridgelabz.addressbookapp.repository.IAddressBookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class AddressBookService implements IAddressBookService {
 
     @Autowired
     IAddressBookRepository service;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<AddressBookData> getAddressBookData() {
@@ -41,13 +45,30 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
+    public List<AddressBookData> sortAddressBookDataStateByComparator() {
+        List<AddressBookData> listOfData = service.findAll();
+        listOfData.sort(Comparator.comparing(AddressBookData::getState));
+        return listOfData;
+    }
+
+    @Override
+    public List<AddressBookData> sortContactsByStateOrderBy() {
+        return service.findContactsByStateOrderBy();
+    }
+
+    @Override
+    public List<AddressBookData> sortContactsByState(String state) {
+        return service.sortContactByState(state);
+    }
+
+    @Override
     public AddressBookData getAddressBookDataById(int personId) {
         return service.findById(personId).orElseThrow(() -> new AddressBookException("Person not found In the List"));
     }
 
     @Override
     public AddressBookData createAddressBookData(AddressBookDTO addressBookDTO) {
-        AddressBookData addressBookData = new AddressBookData(addressBookDTO);
+        AddressBookData addressBookData = modelMapper.map(addressBookDTO, AddressBookData.class);
         service.save(addressBookData);
         return addressBookData;
     }
@@ -55,7 +76,7 @@ public class AddressBookService implements IAddressBookService {
     @Override
     public AddressBookData updateAddressBookData(int personId, AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData = this.getAddressBookDataById(personId);
-        addressBookData.updateAddressBookData(addressBookDTO);
+        modelMapper.map(addressBookDTO, addressBookData);
         service.save(addressBookData);
         return addressBookData;
     }
@@ -65,4 +86,6 @@ public class AddressBookService implements IAddressBookService {
         AddressBookData addressBookData = this.getAddressBookDataById(personId);
         service.delete(addressBookData);
     }
+
+
 }

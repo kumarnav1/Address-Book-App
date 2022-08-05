@@ -15,6 +15,12 @@ public interface IAddressBookService {
 
     List<AddressBookData> sortContactsByCity(String city);
 
+    List<AddressBookData> sortAddressBookDataStateByComparator();
+
+    List<AddressBookData> sortContactsByStateOrderBy();
+
+    List<AddressBookData> sortContactsByState(String state);
+
     AddressBookData getAddressBookDataById(int personId);
 
     AddressBookData createAddressBookData(AddressBookDTO addressBookDTO);
@@ -22,4 +28,6 @@ public interface IAddressBookService {
     AddressBookData updateAddressBookData(int personId, AddressBookDTO addressBookDTO);
 
     void deleteAddressBookData(int personId);
+
+
 }

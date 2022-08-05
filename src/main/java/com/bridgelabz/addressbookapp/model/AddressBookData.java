@@ -23,22 +23,5 @@ public class AddressBookData {
     private String city;
     private String state;
     private int zip;
-
-    public AddressBookData() {
-    }
-
-    public AddressBookData(AddressBookDTO addressBookDTO) {
-        this.updateAddressBookData(addressBookDTO);
-    }
-
-    public void updateAddressBookData(AddressBookDTO addressBookDTO) {
-        this.setFirstName(addressBookDTO.firstName);
-        this.setLastName(addressBookDTO.lastName);
-        this.setPhoneNumber(addressBookDTO.phoneNumber);
-        this.setEmail(addressBookDTO.email);
-        this.setAddress(addressBookDTO.address);
-        this.setCity(addressBookDTO.city);
-        this.setState(addressBookDTO.state);
-        this.setZip(addressBookDTO.zip);
-    }
+    private String password;
 }

@@ -24,16 +24,6 @@ public class AddressBookDTO {
     public String state;
     @NotNull(message = "zip cannot be null")
     public int zip;
-
-    public AddressBookDTO(String firstName, String lastName, String phoneNumber, String email,
-                          String address, String city, String state, int zip) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-    }
+    @Pattern(regexp = "(?=.*[A-Z])(?=.*[0-9])(?=.{8,})([\\w]*[\\W][\\w]*)", message = "Invalid First Name")
+    private String password;
 }
