@@ -2,6 +2,7 @@ package com.bridgelabz.addressbookapp.dto;
 
 import lombok.Data;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,6 +25,9 @@ public class AddressBookDTO {
     public String state;
     @NotNull(message = "zip cannot be null")
     public int zip;
-    @Pattern(regexp = "(?=.*[A-Z])(?=.*[0-9])(?=.{8,})([\\w]*[\\W][\\w]*)", message = "Invalid First Name")
+    @NotEmpty(message = "password cannot be null")
     private String password;
+
+    @NotEmpty(message = "username cannot be null")
+    public String username;
 }

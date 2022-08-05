@@ -21,13 +21,13 @@ public interface IAddressBookService {
 
     List<AddressBookData> sortContactsByState(String state);
 
-    AddressBookData getAddressBookDataById(int personId);
+    AddressBookData getAddressBookDataById(String personId);
 
     AddressBookData createAddressBookData(AddressBookDTO addressBookDTO);
 
-    AddressBookData updateAddressBookData(int personId, AddressBookDTO addressBookDTO);
+    AddressBookData updateAddressBookData(String personId, AddressBookDTO addressBookDTO);
 
-    void deleteAddressBookData(int personId);
+    void deleteAddressBookData(String personId);
 
 
 }

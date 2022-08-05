@@ -62,7 +62,7 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
-    public AddressBookData getAddressBookDataById(int personId) {
+    public AddressBookData getAddressBookDataById(String personId) {
         return service.findById(personId).orElseThrow(() -> new AddressBookException("Person not found In the List"));
     }
 
@@ -74,7 +74,7 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
-    public AddressBookData updateAddressBookData(int personId, AddressBookDTO addressBookDTO) {
+    public AddressBookData updateAddressBookData(String personId, AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData = this.getAddressBookDataById(personId);
         modelMapper.map(addressBookDTO, addressBookData);
         service.save(addressBookData);
@@ -82,7 +82,7 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
-    public void deleteAddressBookData(int personId) {
+    public void deleteAddressBookData(String personId) {
         AddressBookData addressBookData = this.getAddressBookDataById(personId);
         service.delete(addressBookData);
     }

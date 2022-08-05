@@ -6,15 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface IAddressBookRepository extends JpaRepository<AddressBookData, Integer> {
+public interface IAddressBookRepository extends JpaRepository<AddressBookData, String> {
 
-    @Query(value = "select *from address_book order by city", nativeQuery = true)
+    @Query(value = "select * from address_book order by city", nativeQuery = true)
     List<AddressBookData> findContactsByCityOrderBy();
 
     @Query(value = "select * from address_book where city=:city", nativeQuery = true)
     List<AddressBookData> sortContactByCity(String city);
 
-    @Query(value = "select *from address_book order by state", nativeQuery = true)
+    @Query(value = "select * from address_book order by state", nativeQuery = true)
     List<AddressBookData> findContactsByStateOrderBy();
 
     @Query(value = "select * from address_book where state=:state", nativeQuery = true)
